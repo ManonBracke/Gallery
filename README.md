@@ -6,9 +6,11 @@ Voici un site réaliser au cours de ma formation a EAFC (ex-IESPCF) Namur. Ce pr
 ## Pour installer le projet
 
 **Instaltion du projet sur votre ordinateur**
-```git clone https://github.com/ManonBracke/Gallery.git ```
+`git clone https://github.com/ManonBracke/Gallery.git`
 
-** Instalation des librairies **
+---
 
-```composer instal ```
-```composer update ```
+**Instalation des librairies**
+
+`composer instal`
+`composer update`
