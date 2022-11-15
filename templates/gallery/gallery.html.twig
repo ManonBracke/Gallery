@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gallery{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section class="gallery ">
+            <h2 class="my-5 text-black-50">Gallery</h2>
+            <div class="row">
+
+                <!-- FILTERIZER CONTROLS -->
+                <div class="col-md-12 controls-filter">
+                    <ul>
+                        <li data-filter="all" class="btn btn-outline-primary"> All items </li>
+                        {% for category in categories %}
+
+                            <li data-filter="{{category.id}}" class="btn btn-outline-primary"> {{ category.name }} </li>
+
+                        {% endfor%}
+                    </ul>
+                </div>
+                <!-- FILTERIZER PAINTING -->
+
+                <div class="col-md-12 filter-container" style="overflow: hidden">
+                    <!-- Card -->
+                    {% for painting in paintings %}
+                        <div class="col-md-4 filtr-item" data-category="{{ painting.category.id }}" data-sort="value">
+                            <div class="card m-3" style="width: 25rem">
+                                <div class="card-header bg-light">
+                                    <h5 class="text-center">{{painting.title|capitalize}}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <img alt="" src="{{ asset('img/painting/' ~ painting.image) }}" class="img-fluid" style="height: 20rem">
+                                    <p class="card-text">
+                                    <h5 class="card-subtitle text-muted my-3">{{ painting.author|capitalize }}</h5>
+                                    <p>{{ painting.category.name }}</p>
+                                    <div class="text-center">
+                                        <a class="btn btn-primary btn-sm" href="{{ path('detail', {slug:painting.slug}) }}">Voir plus de détails</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- End cards -->
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.filterizr.min.js') }}"></script>
+    <script>
+        let filterizd = $('.filter-container').filterizr({
+            // options here
+        });
+    </script>
+{% endblock %}

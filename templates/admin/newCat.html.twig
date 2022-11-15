@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - New Category {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+        <h2 class="display-5 my-5">Ajouter une catégorie</h2>
+            <div class="col-md-8 offset-2">
+                {{ form_start(formCat) }}
+                    {{ form_widget(formCat) }}
+                    <button type="submit" class="btn btn-outline-secondary">Ajoutez</button>
+                {{ form_end(formCat) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    {% include 'partials/slider.html.twig'%}
+    <main class="container">
+        <section id="about" class="row">
+            <h2 class="my-5 text-black-50">About</h2>
+            <div class="col-md-4">
+                <img src="{{ asset('img/design/about.jpg') }}" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-8">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad aperiam aspernatur cumque
+                    cupiditate, dolorum illum, incidunt ipsam natus officia praesentium quas quibusdam quidem quis
+                    quisquam recusandae repudiandae! Accusamus earum incidunt minima quas! Est fugit maxime minus quasi
+                    sapiente? Pariatur!</p>
+                <p>A architecto assumenda ea itaque laboriosam, laborum, maiores nihil possimus quae saepe, tempore
+                    veritatis voluptatum. Animi dolorem excepturi explicabo harum hic ipsum natus odio optio quaerat
+                    quia quos sapiente, sunt suscipit vitae voluptatibus. Aspernatur, hic laboriosam minus nobis
+                    repellendus saepe!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis dicta esse et facere fuga
+                    fugit impedit incidunt magni provident quo quod ratione suscipit veniam, voluptatibus. Dolores
+                    mollitia rerum saepe.</p>
+            </div>
+        </section>
+    </main>
+{% endblock %}

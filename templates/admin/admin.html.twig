@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <main class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <section id="paintings">
+            <h2 class="display-4 pt-4"> Administration <a href="{{ path('new')}}" class="text-decoration-none fs-1"><i class="icofont-plus"></i></a> </h2>
+
+            <div class="row">
+                <div class="col-md-12 text-center mb-3">
+                    <a href="{{ path('admin')}}" class="btn btn-outline-primary me-4 active"> Tableaux</a><a href="{{ path('comment')}}" class="btn btn-outline-primary"> Commentaires</a>
+                </div>
+                <div class="col-md-12 ">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Height</th>
+                            <th scope="col">Width</th>
+                            <th scope="col">Catégorie <a href="{{ path('newCat')}}" class="text-decoration-none"><i class="icofont-plus"></i></a></th>
+                            <th scope="col">Technical<a href="{{ path('newTech')}}" class="text-decoration-none"><i class="icofont-plus"></i></a></th>
+                            <th scope="col"><i class="icofont-ui-delete"></i></th>
+                            <th scope="col"><i class="icofont-ui-edit"></i></th>
+                            <th scope="col"><i class="icofont-eye"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for painting in paintings %}
+                            <tr>
+                                <td><img src="{{ asset('img/painting/' ~ painting.image)}}" alt="{{painting.title}}" class="img-fluid" style="height: 5rem;"></td>
+                                <td><a href="{{ path('detail', {slug:painting.slug}) }}" class="text-decoration-none">{{painting.title|capitalize}}</a></td>
+                                <td>{{ painting.author}}</td>
+                                <td>{{ painting.createdAt|date('d/m/Y')}}</td>
+                                <td>{{ painting.description}}</td>
+                                <td>{{ painting.height}}cm</td>
+                                <td>{{ painting.width}}cm</td>
+                                <td>{{ painting.category.name|capitalize }}</td>
+                                <td>{{ painting.technical.name|capitalize }}</td>
+                                <td><a href="{{ path('delete', {id:painting.id}) }}" class="text-decoration-none"><i class="icofont-ui-delete text-danger"></i></a> </td>
+                                <td><a href="{{ path('edit', {id:painting.id}) }}" class="text-decoration-none"><i class="icofont-ui-edit"></i></a></td>
+                                <td><a href="{{ path('view', {id:painting.id}) }}" class="text-decoration-none">
+                                        {% if painting.isPublished %}
+                                            <i class="icofont-eye text-success"></i>
+                                        {% else %}
+                                            <i class="icofont-eye text-danger"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 offset-4" >
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(paintings) }}
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+{% endblock %}

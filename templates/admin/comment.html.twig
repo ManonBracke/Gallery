@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Commentaire{% endblock %}
+
+{% block body %}
+
+    <main class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <section id="comments">
+            <h2 class="display-4 pt-4">Administration</h2>
+            <div class="row">
+                <div class="col-md-12 text-center mb-3">
+                    <a href="{{path('admin')}}" class="btn btn-outline-primary me-4"> Tableaux</a><a href="{{path('comment')}}" class="btn btn-outline-primary active"> Commentaires</a>
+                </div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Tableau</th>
+                            <th>Pseudo</th>
+                            <th>Commentaire</th>
+                            <th>Création</th>
+                            <th><i class="icofont-ui-delete"></i></th>
+                            <th><i class="icofont-eye"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td><a href="{{ path('detail', {slug:comment.painting.slug}) }}" class="text-decoration-none">{{ comment.painting.title|capitalize }}</a></td>
+                                <td>{{ comment.pseudo|capitalize }}</td>
+                                <td>{{ comment.content|capitalize }}</td>
+                                <td>{{ comment.createdAt|date('d/m/Y') }}</td>
+                                <td><a href="{{ path('comment_delete', {id:comment.id}) }}" class="text-decoration-none"><i
+                                                class="icofont-ui-delete text-danger"></i></a></td>
+
+                                <td><a href="{{ path('comment_view', {id:comment.id}) }}" class="text-decoration-none" >
+                                        {% if comment.isPublished %}
+                                            <i class="icofont-eye text-success"></i>
+                                        {% else %}
+                                            <i class="icofont-eye text-danger"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="col-md-6 offset-4">
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(comments) }}
+                    </div>
+                </div>
+        </section>
+
+    </main>
+{% endblock %}

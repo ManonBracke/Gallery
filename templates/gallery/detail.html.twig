@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{painting.title|capitalize }} {% endblock %}
+{% block body %}
+
+    <main class="container">
+        <div class="row" style="overflow: hidden">
+            <a href="{{ path('gallery') }}" class="mt-4 text-decoration-none"><i class="icofont-arrow-left"></i>Back to Gallery</a>
+            <div class="col-md-12 mt-3">
+                <h2 class="text-black-50">Detail de l'oeuvre</h2>
+                <ul class="nav nav-tabs mb-3 col-md-4">
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#comments">Commentaires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#postcomments">Postez un commentaire</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="profil">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset('img/painting/' ~ painting.image )}}" alt="{{ painting.title }}" class="img-fluid" style="height: 20rem">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="display-5">{{ painting.title|capitalize }}</h3>
+                            <h4>Author : {{painting.author|capitalize }}</h4>
+                            <p>Création: {{ painting.createdAt|date('d/m/Y') }}  </p>
+                            <p>Category : {{ painting.category.name|capitalize }}  </p>
+                            <p>Technical : {{ painting.technical.name|capitalize }} </p>
+                            <p>Height : {{painting.height}} cm</p>
+                            <p>Width : {{painting.width}} cm</p>
+
+                            <p class="lead">{{ painting.description|capitalize }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 tab-pane fade mt-3" id="comments">
+                    {% if not comments %}
+                        <h3>Aucun commentaire n'a été publié pour ce tableau</h3>
+                    {% else %}
+                        {% for comment in comments %}
+                            <h6>{{ comment.pseudo|capitalize }}</h6>
+                            <h6 class="text-muted">Ajouté le {{ comment.createdAt|date('d/m/Y')}} &nbsp;&nbsp;<i class="icofont-star"></i><i class="icofont-star"></i><i class="icofont-star"></i></h6>
+                            <p>{{ comment.content|capitalize }}</p>
+                            <hr>
+
+                        {%endfor%}
+                    {% endif %}
+
+                </div>
+                <div class="col-md-12 tab-pane fade" id="postcomments">
+                    <h4>Ajoutez un commentaire</h4>
+                    {{ form_start(commentForm) }}
+                    {{ form_widget(commentForm) }}
+                    <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                    {{ form_end(commentForm) }}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}
